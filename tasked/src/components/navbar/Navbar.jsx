@@ -18,11 +18,11 @@ const Navbar = () => {
     };
 
     return (
-        <div className="bg-blue-600 p-4 text-white">
+        <div className="bg-indigo-800 p-4 text-white">
             <div className="container mx-auto">
                 <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold">
-                <Link to="/home" className="text-white hover:text-blue-400">
+                <Link to="/home" className="text-white hover:text-indigo-200">
                     Tasked
                 </Link>
                 </h1>
@@ -31,15 +31,15 @@ const Navbar = () => {
                             {isAuthenticated ? (
                                 <>
                                     <li>
-                                        <Link to="/mytasks" className="hover:text-blue-400">My Tasks</Link>
+                                        <Link to="/mytasks" className="hover:text-indigo-200">My Tasks</Link>
                                     </li>
                                     <li>
-                                        <button onClick={handleSignOut} className="hover:text-blue-400">Sign Out</button>
+                                        <button onClick={handleSignOut} className="hover:text-indigo-200">Sign Out</button>
                                     </li>
                                 </>
                             ) : (
                                 <>
-                                    <li>
+                                    {/* <li>
                                         <Link to="/home" className="hover:text-blue-400">Home</Link>
                                     </li>
                                     <li>
@@ -47,7 +47,7 @@ const Navbar = () => {
                                     </li>
                                     <li>
                                         <Link to="/login" className="hover:text-blue-400">Login</Link>
-                                    </li>
+                                    </li> */}
                                 </>
                             )}
                         </ul>

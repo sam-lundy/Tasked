@@ -1,3 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+body {
+    background-color: #f3f4f6; /* This is the color for bg-gray-100 in Tailwind */
+}

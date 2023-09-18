@@ -102,7 +102,7 @@ const MyTasks = () => {
 
 
     return (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-start justify-center h-screen mt-20">
             <div className="bg-white p-8 rounded-lg shadow-md w-1/2 ">
                 <div className="mb-4">
                     <input 
@@ -112,7 +112,7 @@ const MyTasks = () => {
                         className="border rounded p-2 w-full"
                     />
                     <div className="flex justify-center">
-                        <button onClick={handleAddTask} className="mt-2 bg-blue-600 text-white p-2 rounded w-1/2">
+                        <button onClick={handleAddTask} className="mt-8 bg-indigo-800 text-white p-2 rounded w-1/4">
                             Add Task
                         </button>
                     </div>
@@ -148,7 +148,7 @@ const MyTasks = () => {
                             <span>{t.title}</span>
                             <button 
                                 onClick={() => handleUnDeleteTask(index)} 
-                                className="text-blue-500 hover:text-blue-700"
+                                className="text-blue-500 hover:text-indigo-700"
                             >
                                 Mark Active
                             </button>
