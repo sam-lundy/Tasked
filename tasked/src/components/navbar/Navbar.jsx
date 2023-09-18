@@ -21,11 +21,11 @@ const Navbar = () => {
         <div className="bg-indigo-800 p-4 text-white">
             <div className="container mx-auto">
                 <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold">
-                <Link to="/home" className="text-white hover:text-indigo-200">
-                    Tasked
-                </Link>
-                </h1>
+                    <h1 className="text-2xl font-bold">
+                        <Link to="/home" className="text-white hover:text-indigo-200">
+                            Tasked
+                        </Link>
+                    </h1>
                     <nav>
                         <ul className="flex space-x-4">
                             {isAuthenticated ? (
@@ -39,15 +39,12 @@ const Navbar = () => {
                                 </>
                             ) : (
                                 <>
-                                    {/* <li>
-                                        <Link to="/home" className="hover:text-blue-400">Home</Link>
-                                    </li>
                                     <li>
                                         <Link to="/register" className="hover:text-blue-400">Register</Link>
                                     </li>
                                     <li>
                                         <Link to="/login" className="hover:text-blue-400">Login</Link>
-                                    </li> */}
+                                    </li>
                                 </>
                             )}
                         </ul>
@@ -56,6 +53,7 @@ const Navbar = () => {
             </div>
         </div>
     );
+    
 };
 
 export default Navbar;

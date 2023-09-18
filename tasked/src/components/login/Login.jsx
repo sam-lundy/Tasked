@@ -6,6 +6,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
+    const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
@@ -48,16 +49,17 @@ const Login = () => {
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                     Please Sign In
                 </h2>
+                {error && <div className="text-red-500">{error}</div>}
                 </div>
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                 <div className="rounded-md shadow-sm space-y-8">
                     <div className='flex justify-center'>
                         <label htmlFor="username" className="sr-only">Username</label>
-                        <input id="username" name="username" type="text" required className="appearance-none rounded-none relative block w-3/4 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-800 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+                        <input id="username" name="username" type="text" required className="appearance-none rounded-none relative block w-3/4 px-3 py-2 border border-indigo-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-800 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
                     </div>
                     <div className='flex justify-center'>
                         <label htmlFor="password" className="sr-only">Password</label>
-                        <input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-3/4 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-800 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                        <input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-3/4 px-3 py-2 border border-indigo-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-800 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                     </div>
                 </div>
 
@@ -71,7 +73,7 @@ const Login = () => {
             </form>
         </div>
     </div>
-        {errorMsg && <p>{errorMsg}</p>}
+        
     </>
   )
 }

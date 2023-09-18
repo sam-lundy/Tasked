@@ -10,8 +10,8 @@ def register():
     username = data.get('username')
     password = data.get('password')
 
-    user = User.query.filter_by(username=username).first()
-    if user:
+    existing_user = User.query.filter_by(username=username).first()
+    if existing_user:
         return jsonify({"message": "Username already taken"}), 400
     
     new_user = User(username=username)
@@ -30,8 +30,8 @@ def login():
     username = data['username']
     password = data['password']
 
-    user = User.query.filter_by(username=username).first()
-    if not user or not user.check_password(password):
+    user = User.query.filter_by(username=data['username']).first()
+    if not user or not user.check_password(data[password]):
         return jsonify({"message": "Invalid username or password"}), 401
     
     access_token = create_access_token(identity=username)
