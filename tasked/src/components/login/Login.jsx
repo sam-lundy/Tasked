@@ -6,20 +6,33 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
-        try {
-            const response = await axios.post('http://localhost:5000/login', {
-                username: username,
-                password: password
-            });
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+            try {
+                const response = await axios.post('http://localhost:5000/api/login', {
+                    username: username,
+                    password: password
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
             const token = response.data.access_token;
             localStorage.setItem('token', token);
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            useNavigate('/mytasks');
+            if (response.data.success) {
+                setMessage(`${username} logged in.`);
+                setTimeout(() => {
+                  navigate('/mytasks');
+                }, 2000);
+              } else {
+                setMessage(response.data.error);
+              }
 
         } catch (error) {
             console.error("Error logging in:", error);

@@ -6,8 +6,11 @@ from flask_jwt_extended import create_access_token
 @auth.route('/register', methods=['POST'])
 def register():
     data = request.json
-    username = data['username']
-    password = data['password']
+    print(request.data)
+    print(data)
+
+    username = data.get('username')
+    password = data.get('password')
 
     user = User.query.filter_by(username=username).first()
     if user:
@@ -19,12 +22,14 @@ def register():
     db.session.add(new_user)
     db.session.commit()
     
-    return jsonify({"message": "User registered successfully"})
+    return jsonify({"success": True, "message": "User registered successfully"})
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     data = request.json
+    print(request.data)
+    print(data)
     username = data['username']
     password = data['password']
 
@@ -34,4 +39,5 @@ def login():
     
     access_token = create_access_token(identity=username)
     
-    return jsonify({"message": "Logged in successfully"}, access_token=access_token)
+    response_data = {"success": True, "message": "Logged in successfully", "access_token": access_token}
+    return jsonify(response_data)

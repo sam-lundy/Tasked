@@ -1,10 +1,10 @@
 from flask import Flask
-from flask_login import LoginManager
 from config import Config
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from .models import db, User
+from flask_login import LoginManager
 
 def create_app():
 
@@ -14,17 +14,14 @@ def create_app():
 
     CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
-    jwt = JWTManager(app)
-
     login_manager = LoginManager()
+    login_manager.init_app(app)
+
+    jwt = JWTManager(app)
 
     db.init_app(app)
 
     migrate = Migrate(app, db)
-
-    login_manager.login_view = 'auth.login'
-    login_manager.login_message_category = 'error'
-    login_manager.login_message = None
 
     from app.blueprints.auth import auth
     from app.blueprints.main import main
@@ -34,7 +31,8 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(user_id)
+        return User.query.get(int(user_id))
+
 
 
     return app

@@ -1,18 +1,45 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, setMessage } from 'react';
+import { useNavigate } from 'react-router-dom';
+axios.defaults.baseURL = 'http://localhost:5000';
+
 
 
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = async () => {
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (password !== confirmPassword) {
+            console.error("Passwords do not match!");
+            return;
+        }
+
         try {
-            const response = await axios.post('http://localhost:5000/register', {
+            const response = await axios.post('http://localhost:5000/api/register', {
                 username: username,
                 password: password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
             console.log(response.data);
+            
+            if (response.data.success) {
+                setMessage(`Welcome ${username}! Registration successful.`);
+                setTimeout(() => {
+                  navigate('/login');
+                }, 3000);
+              } else {
+                setMessage(response.data.error);
+              }
+
         } catch (error) {
             console.error("Error registering user:", error);
         }
