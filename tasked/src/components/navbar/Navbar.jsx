@@ -1,19 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext';
 
 const Navbar = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const { isAuthenticated, setAuth } = useAuth();
     const navigate = useNavigate();
 
-    // Check the authentication status when the component mounts
+
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        setIsAuthenticated(!!token);
+        const updateAuthStatus = () => {
+            setIsAuthenticated(!!localStorage.getItem('token'));
+        };
+
+        window.addEventListener('storage', updateAuthStatus);
+
+        return () => {
+            window.removeEventListener('storage', updateAuthStatus);
+        };
     }, []);
 
     const handleSignOut = () => {
         localStorage.removeItem('token');
-        setIsAuthenticated(false);
+        setAuth(false);
         navigate('/login');
     };
 

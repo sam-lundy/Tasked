@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext';
 
 const Login = () => {
+    const { setAuth } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
@@ -12,35 +14,38 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-            try {
-                const response = await axios.post('http://localhost:5000/api/login', {
-                    username: username,
-                    password: password
-                }, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+        try {
+            const response = await axios.post('http://localhost:5000/api/login', {
+                username: username,
+                password: password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             const token = response.data.access_token;
             localStorage.setItem('token', token);
-
+    
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
+    
             if (response.data.success) {
                 setMessage(`${username} logged in.`);
+    
+                setAuth(true);
+    
                 setTimeout(() => {
-                  navigate('/mytasks');
+                    navigate('/mytasks');
                 }, 2000);
-              } else {
+            } else {
                 setMessage(response.data.error);
-              }
-
+            }
+    
         } catch (error) {
             console.error("Error logging in:", error);
             setErrorMsg('Invalid username or password');
         }
     };
-
+    
   return (
     <>
         <div className="min-h-screen flex items-start justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
